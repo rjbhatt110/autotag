@@ -680,10 +680,12 @@ import {
   ClockIcon,
   AdjustmentsIcon,
   PencilAltIcon,
-  UserGroupIcon,
-  ViewGridAddIcon,
+  ClipboardCheckIcon,
+  TagIcon,
+  PaperClipIcon,
   DotsVerticalIcon,
   PlusSmIcon,
+  BellIcon,
   ExclamationCircleIcon,
 } from "@heroicons/vue/outline";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
@@ -692,10 +694,10 @@ const navigation = [
   { name: "FIELD", href: "#", icon: PencilAltIcon, current: true },
   { name: "TIMELINE", href: "#", icon: AdjustmentsIcon, current: false },
   { name: "RESOURCE", href: "#", icon: ClockIcon, current: false },
-  { name: "CHECKLIST", href: "#", icon: UserGroupIcon, current: false },
-  { name: "ATTACHMENTS", href: "#", icon: ViewGridAddIcon, current: false },
-  { name: "REMINDERS", href: "#", icon: ViewGridAddIcon, current: false },
-  { name: "TAGS", href: "#", icon: ViewGridAddIcon, current: false },
+  { name: "CHECKLIST", href: "#", icon: ClipboardCheckIcon, current: false },
+  { name: "ATTACHMENTS", href: "#", icon: PaperClipIcon, current: false },
+  { name: "REMINDERS", href: "#", icon: BellIcon, current: false },
+  { name: "TAGS", href: "#", icon: TagIcon, current: false },
 ];
 const items = [
   { name: "Clone", href: "#" },
@@ -716,12 +718,4 @@ const tabs = [
 </script>
 
 <style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
 </style>
