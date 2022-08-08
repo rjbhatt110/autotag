@@ -97,20 +97,43 @@
         </TransitionRoot>
 
         <!-- Static sidebar for desktop -->
-        <div class="hidden md:flex lg:w-64 md:w-16 md:flex-col md:fixed md:inset-y-0">
+        <div
+          class="hidden md:flex lg:w-64 md:w-16 md:flex-col md:fixed md:inset-y-0"
+        >
           <!-- Sidebar component, swap this element with another sidebar if you like -->
           <div
             class="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white"
           >
-            <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-              <!-- <div class="flex items-center flex-shrink-0 px-4">
+            <div class="flex-1 flex flex-col pt-5 pb-4">
+              <!-- Full Sidebar logo -->
+              <div
+                class="m:hidden md:hidden lg:block flex items-center flex-shrink-0 px-4"
+              >
                 <img
                   class="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
                   alt="Workflow"
                 />
-              </div> -->
-              <nav class="sm:hidden md:hidden lg:block mt-5 flex-1 px-2 bg-white space-y-1">
+              </div>
+              <!-- Narrow Sidebar logo -->
+              <div
+                class="sm:hidden lg:hidden md:block absolute inset-y-0 left-0 md:static md:flex-shrink-0"
+              >
+                <a
+                  href="#"
+                  class="flex h-12 w-12 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-16"
+                >
+                  <img
+                    class="h-8 w-auto"
+                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
+                    alt="Workflow"
+                  />
+                </a>
+              </div>
+              <!-- Full Sidebar -->
+              <nav
+                class="sm:hidden md:hidden lg:block mt-5 flex-1 px-2 bg-white space-y-1"
+              >
                 <a
                   v-for="item in navigation"
                   :key="item.name"
@@ -139,7 +162,7 @@
               <!-- Narrow sidebar-->
               <nav
                 aria-label="Sidebar"
-                class="sm:hidden lg:hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-white"
+                class="sm:hidden lg:hidden md:block md:flex-shrink-0 md:bg-white"
               >
                 <div class="relative flex w-16 flex-col space-y-3 p-3">
                   <a
@@ -170,7 +193,7 @@
             </div>
           </div>
         </div>
-        <div class="md:pl-64 flex flex-col flex-1">
+        <div class="lg:pl-64 md:pl-16 flex flex-col flex-1">
           <div
             class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white"
           >
@@ -614,16 +637,16 @@
                               class="relative flex items-center justify-between"
                             >
                               <span
-                                class="pr-3 bg-white text-lg font-medium text-gray-900"
+                                class="pr-3 bg-white text-sm font-medium text-gray-900"
                               >
                                 AFFECTS
                               </span>
                               <button
                                 type="button"
-                                class="inline-flex items-center shadow-sm px-4 py-1.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                class="inline-flex items-center shadow-sm px-2 py-1 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                               >
                                 <PlusSmIcon
-                                  class="h-5 w-5 text-gray-400"
+                                  class="h-4 w-4 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
