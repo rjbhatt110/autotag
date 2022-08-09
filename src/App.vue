@@ -517,7 +517,7 @@
                                 height="24"
                                 viewBox="0 0 32 32"
                                 style="fill: #000000"
-                                class="mt-2"
+                                class="mt-2 ml-3"
                               >
                                 <path
                                   d="M 6 4 L 6 28 L 26 28 L 26 4 Z M 8 6 L 24 6 L 24 26 L 8 26 Z M 10 9 L 10 11 L 22 11 L 22 9 Z M 10 13 L 10 15 L 12 15 L 12 13 Z M 14 13 L 14 15 L 22 15 L 22 13 Z M 10 17 L 10 19 L 12 19 L 12 17 Z M 14 17 L 14 19 L 22 19 L 22 17 Z M 10 21 L 10 23 L 12 23 L 12 21 Z M 14 21 L 14 23 L 22 23 L 22 21 Z"
@@ -617,7 +617,7 @@
                                 height="24"
                                 viewBox="0 0 32 32"
                                 style="fill: #000000"
-                                class="mt-2"
+                                class="mt-2 ml-3"
                               >
                                 <path
                                   d="M 6 4 L 6 28 L 26 28 L 26 4 Z M 8 6 L 24 6 L 24 26 L 8 26 Z M 10 9 L 10 11 L 22 11 L 22 9 Z M 10 13 L 10 15 L 12 15 L 12 13 Z M 14 13 L 14 15 L 22 15 L 22 13 Z M 10 17 L 10 19 L 12 19 L 12 17 Z M 14 17 L 14 19 L 22 19 L 22 17 Z M 10 21 L 10 23 L 12 23 L 12 21 Z M 14 21 L 14 23 L 22 23 L 22 21 Z"
