@@ -386,7 +386,9 @@
                         <!-- Form Section -->
                         <div class="grid grid-cols-3 gap-6">
                           <!-- Subject -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <div class="flex flex-1 items-center">
                               <label
                                 for="subject"
@@ -454,11 +456,13 @@
                               id="subject"
                               autocomplete="given-name"
                               value="Autotag node"
-                              class="mt-1 ml-1.5 block flex-[4] border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              class="mt-1 ml-1.5 block flex-[4] w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
                           </div>
                           <!-- Company -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="company"
                               class="block text-sm flex-1 font-medium text-gray-700"
@@ -526,8 +530,10 @@
                             </div>
                           </div>
                           <!-- Requested By -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
-                            <div class="flex flex-1 items-center">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
+                            <div class="flex flex-1 flex-wrap items-center">
                               <label
                                 for="requested"
                                 class="block text-sm font-medium mr-1 mb-[2px] text-gray-700"
@@ -653,13 +659,17 @@
                             </div>
                           </div>
                           <!-- Assign To -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="assigned"
                               class="block text-sm flex-1 font-medium text-gray-700"
                               >ASSIGNED TO</label
                             >
-                            <div class="mt-1 flex-[4] relative rounded-md shadow-sm">
+                            <div
+                              class="mt-1 flex-[4] relative rounded-md shadow-sm"
+                            >
                               <div
                                 class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
                               >
@@ -695,13 +705,17 @@
                             </div>
                           </div>
                           <!-- Type -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="type"
                               class="block flex-1 text-sm font-medium text-gray-700"
                               >TYPE</label
                             >
-                            <div class="mt-1 flex-[4] relative rounded-md shadow-sm">
+                            <div
+                              class="mt-1 flex-[4] relative rounded-md shadow-sm"
+                            >
                               <div
                                 class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
                               >
@@ -748,7 +762,9 @@
                             </div>
                           </div>
                           <!-- Priority -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="priority"
                               class="block flex-1 text-sm font-medium text-gray-700"
@@ -766,7 +782,9 @@
                             </select>
                           </div>
                           <!-- Status -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="status"
                               class="block flex-1 text-sm font-medium text-gray-700"
@@ -784,7 +802,9 @@
                             </select>
                           </div>
                           <!-- Estimated Time -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="estimate"
                               class="block flex-1 text-sm font-medium text-gray-700"
@@ -798,7 +818,9 @@
                             />
                           </div>
                           <!-- Channel -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="channel"
                               class="block flex-1 text-sm font-medium text-gray-700"
@@ -815,7 +837,9 @@
                             </select>
                           </div>
                           <!-- ID -->
-                          <div class="flex items-baseline justify-between col-span-6 sm:col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <div class="flex flex-1 items-baseline">
                               <label
                                 for="exampleFormControlInput5"
@@ -859,22 +883,22 @@
                             />
                           </div>
                           <!-- Description -->
-                          <div class="flex items-baseline justify-between col-span-3">
+                          <div
+                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                          >
                             <label
                               for="description"
                               class="block flex-1 text-sm font-medium text-gray-700"
                             >
                               DESCRIPTION
                             </label>
-                            <div class="mt-1 flex-[4]">
-                              <textarea
-                                id="description"
-                                name="description"
-                                rows="3"
-                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                placeholder="Write something here"
-                              />
-                            </div>
+                            <textarea
+                              id="description"
+                              name="description"
+                              rows="3"
+                              class="shadow-sm focus:ring-indigo-500 flex-[4] focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                              placeholder="Write something here"
+                            />
                           </div>
                         </div>
                       </div>
