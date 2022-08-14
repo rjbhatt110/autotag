@@ -338,7 +338,7 @@
                     </button>
 
                     <div
-                      class="ml-3 relative z-0 inline-flex shadow-sm rounded-md"
+                      class="ml-3 relative z-1 inline-flex shadow-sm rounded-md"
                     >
                       <Menu as="div" class="-ml-px relative block">
                         <MenuButton
@@ -359,7 +359,7 @@
                           leave-to-class="transform opacity-0 scale-95"
                         >
                           <MenuItems
-                            class="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="origin-top-right absolute right-0 mt-2 -mr-1 w-56 z-10 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                           >
                             <div class="py-1">
                               <MenuItem
