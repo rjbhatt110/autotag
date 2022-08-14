@@ -101,8 +101,26 @@
           <div
             class="flex-1 flex flex-col min-h-0 pb-4 border-r border-gray-200 bg-white"
           >
+            <div class="flex-shrink-0 flex p-4">
+              <!-- border-b border-[#4f46e5] -->
+              <a href="#" class="flex-shrink-0 w-full group block">
+                <div class="flex items-center">
+                  <MenuAlt1Icon
+                    v-if="collapse"
+                    @click="menuCollapse()"
+                    class="text-[#4f46e5] flex-shrink-0 h-6 w-6"
+                  />
+                  <MenuAlt2Icon
+                    v-if="!collapse"
+                    @click="menuCollapse()"
+                    class="text-[#4f46e5] flex-shrink-0 h-6 w-6"
+                  />
+                </div>
+              </a>
+            </div>
+
             <!-- Full Sidebar -->
-            <nav class="mt-5 flex-1 px-2 bg-white space-y-1">
+            <nav class="flex-1 px-2 bg-white space-y-1">
               <a
                 v-for="item in navigation"
                 :key="item.name"
@@ -129,31 +147,17 @@
                 }}</span>
               </a>
             </nav>
-
-            <div
-              class="flex-shrink-0 flex border-t border-gray-200 pt-4 pr-4 pl-4"
-            >
-              <a href="#" class="flex-shrink-0 w-full group block">
-                <div class="flex items-center">
-                  <ArrowLeftIcon
-                    v-if="collapse"
-                    @click="menuCollapse()"
-                    class="text-gray-400 flex-shrink-0 h-6 w-6"
-                  />
-                  <ArrowRightIcon
-                    v-if="!collapse"
-                    @click="menuCollapse()"
-                    class="text-gray-400 flex-shrink-0 h-6 w-6"
-                  />
-                </div>
-              </a>
-            </div>
           </div>
         </div>
-        <div :class="[collapse ? 'md:pl-64 duration-500' : 'md:pl-16 duration-500', 'flex flex-col flex-1']">
+        <div
+          :class="[
+            collapse ? 'md:pl-64 duration-500' : 'md:pl-16 duration-500',
+            'flex flex-col flex-1',
+          ]"
+        >
           <!-- Mobile top bar -->
           <div
-            class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white"
+            class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white flex"
           >
             <button
               type="button"
@@ -163,52 +167,163 @@
               <span class="sr-only">Open sidebar</span>
               <MenuIcon class="h-6 w-6" aria-hidden="true" />
             </button>
+
+            <div class="flex-1 flex justify-between px-4 md:px-0">
+              <div class="flex-1 flex">
+                <form class="w-full flex md:ml-0" action="#" method="GET">
+                  <label for="search-field" class="sr-only">Search</label>
+                  <div
+                    class="relative w-full text-gray-400 focus-within:text-gray-600"
+                  >
+                    <div
+                      class="pointer-events-none absolute inset-y-0 left-0 flex items-center"
+                    >
+                      <SearchIcon class="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <input
+                      id="search-field"
+                      class="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
+                      placeholder="Search"
+                      type="search"
+                      name="search"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="ml-4 flex items-center md:ml-6">
+                <button
+                  type="button"
+                  class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <span class="sr-only">View notifications</span>
+                  <BellIcon class="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                <!-- Profile dropdown -->
+                <Menu as="div" class="ml-3 relative">
+                  <div>
+                    <MenuButton
+                      class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      <span class="sr-only">Open user menu</span>
+                      <img
+                        class="h-8 w-8 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </MenuButton>
+                  </div>
+                  <transition
+                    enter-active-class="transition ease-out duration-100"
+                    enter-from-class="transform opacity-0 scale-95"
+                    enter-to-class="transform opacity-100 scale-100"
+                    leave-active-class="transition ease-in duration-75"
+                    leave-from-class="transform opacity-100 scale-100"
+                    leave-to-class="transform opacity-0 scale-95"
+                  >
+                    <MenuItems
+                      class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none"
+                    >
+                      <MenuItem
+                        v-for="item in userNavigation"
+                        :key="item.name"
+                        v-slot="{ active }"
+                      >
+                        <a
+                          :href="item.href"
+                          :class="[
+                            active ? 'bg-gray-100' : '',
+                            'block py-2 px-4 text-sm text-gray-700',
+                          ]"
+                          >{{ item.name }}</a
+                        >
+                      </MenuItem>
+                    </MenuItems>
+                  </transition>
+                </Menu>
+              </div>
+            </div>
           </div>
 
           <main class="flex-1">
-            <div class="p-6">
+            <div class="p-4">
               <div class="w-full mb-4 sm:px-6 md:px-8">
-                <div class="md:flex md:items-center md:justify-between">
-                  <div class="flex items-center flex-1 min-w-0">
-                    <div class="relative">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        x="0px"
-                        y="0px"
-                        width="48"
-                        height="48"
-                        viewBox="0 0 48 48"
-                        style="fill: #000000"
-                      >
-                        <path
-                          fill="#4caf50"
-                          d="M37,39H11l-6,6V11c0-3.3,2.7-6,6-6h26c3.3,0,6,2.7,6,6v22C43,36.3,40.3,39,37,39z"
-                        ></path>
-                        <path
-                          fill="#004d40"
-                          d="M33.414,29.586l-7.636-7.636l-2.828,2.828l7.636,7.636C30.977,32.805,31.488,33,32,33 c0.512,0,1.023-0.195,1.414-0.586S34,31.512,34,31S33.805,29.977,33.414,29.586z"
-                        ></path>
-                        <path
-                          fill="#e0e0e0"
-                          d="M25.21 22.79L23.79 24.21 16.59 17 15.14 17 13 13.43 14.43 12 18 14.14 18 15.59z"
-                        ></path>
-                        <path
-                          fill="#bdbdbd"
-                          d="M25.2,22.79l-3.32-3.32l-1.41,1.41l3.32,3.33L25.2,22.79z"
-                        ></path>
-                        <path
-                          fill="#e0e0e0"
-                          d="M36,16.5c0,3.04-2.46,5.5-5.5,5.5c-0.79,0-1.53-0.17-2.21-0.46L17.41,32.41 C17.02,32.8,16.51,33,16,33s-1.02-0.2-1.41-0.59c-0.395-0.39-0.593-0.9-0.593-1.41c0-0.51,0.198-1.02,0.593-1.41l10.87-10.88 C25.17,18.03,25,17.29,25,16.5c0-3.04,2.46-5.5,5.5-5.5c0.79,0,1.53,0.17,2.21,0.46l-4.7,4.7l2.83,2.83l4.7-4.7 C35.83,14.97,36,15.71,36,16.5z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <h1
-                      class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate"
+                <!-- Page Header -->
+                <div class="flex items-center flex-1 min-w-0">
+                  <div class="relative">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      width="48"
+                      height="48"
+                      viewBox="0 0 48 48"
+                      style="fill: #000000"
                     >
-                      Autotag node
-                    </h1>
+                      <path
+                        fill="#4caf50"
+                        d="M37,39H11l-6,6V11c0-3.3,2.7-6,6-6h26c3.3,0,6,2.7,6,6v22C43,36.3,40.3,39,37,39z"
+                      ></path>
+                      <path
+                        fill="#004d40"
+                        d="M33.414,29.586l-7.636-7.636l-2.828,2.828l7.636,7.636C30.977,32.805,31.488,33,32,33 c0.512,0,1.023-0.195,1.414-0.586S34,31.512,34,31S33.805,29.977,33.414,29.586z"
+                      ></path>
+                      <path
+                        fill="#e0e0e0"
+                        d="M25.21 22.79L23.79 24.21 16.59 17 15.14 17 13 13.43 14.43 12 18 14.14 18 15.59z"
+                      ></path>
+                      <path
+                        fill="#bdbdbd"
+                        d="M25.2,22.79l-3.32-3.32l-1.41,1.41l3.32,3.33L25.2,22.79z"
+                      ></path>
+                      <path
+                        fill="#e0e0e0"
+                        d="M36,16.5c0,3.04-2.46,5.5-5.5,5.5c-0.79,0-1.53-0.17-2.21-0.46L17.41,32.41 C17.02,32.8,16.51,33,16,33s-1.02-0.2-1.41-0.59c-0.395-0.39-0.593-0.9-0.593-1.41c0-0.51,0.198-1.02,0.593-1.41l10.87-10.88 C25.17,18.03,25,17.29,25,16.5c0-3.04,2.46-5.5,5.5-5.5c0.79,0,1.53,0.17,2.21,0.46l-4.7,4.7l2.83,2.83l4.7-4.7 C35.83,14.97,36,15.71,36,16.5z"
+                      ></path>
+                    </svg>
                   </div>
-                  <div class="mt-4 flex md:mt-0 md:ml-4">
+                  <h1
+                    class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate"
+                  >
+                    Autotag node
+                  </h1>
+                </div>
+                <div class="flex items-center justify-between flex-wrap">
+                  <!-- Tab -->
+                  <div class="flex flex-1 mt-4 mr-4">
+                    <nav
+                      class="relative sm:w-3/4 w-full z-0 rounded-lg shadow flex divide-x divide-gray-200"
+                      aria-label="Tabs"
+                    >
+                      <a
+                        v-for="(tab, tabIdx) in tabs"
+                        :key="tab.name"
+                        :href="tab.href"
+                        :class="[
+                          tab.current
+                            ? 'text-white bg-[#4f46e5] hover:text-[#4f46e5]'
+                            : 'text-gray-500 hover:text-[#4f46e5] bg-white',
+                          tabIdx === 0 ? 'rounded-l-lg' : '',
+                          tabIdx === tabs.length - 1 ? 'rounded-r-lg' : '',
+                          'group relative min-w-0 flex-1 overflow-hidden bg-white py-2 px-3 text-sm font-medium text-center hover:bg-gray-50 focus:z-10',
+                        ]"
+                        :aria-current="tab.current ? 'page' : undefined"
+                      >
+                        <span>{{ tab.name }}</span>
+                        <!-- <span
+                                  aria-hidden="true"
+                                  :class="[
+                                    tab.current
+                                      ? 'bg-indigo-500'
+                                      : 'bg-transparent',
+                                    'absolute inset-x-0 bottom-0 h-0.5',
+                                  ]"
+                                /> -->
+                      </a>
+                    </nav>
+                  </div>
+                  <!-- Save and Close -->
+                  <div class="flex flex-none mt-4">
                     <button
                       type="button"
                       class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -277,47 +392,9 @@
                 <div class="space-y-6 lg:px-0 lg:col-span-9">
                   <form action="#" method="POST">
                     <div class="shadow sm:rounded-md sm:overflow-hidden">
-                      <div class="bg-white px-4 space-y-6 sm:pb-6 sm:pr-6 sm:pl-6 sm:pt-3">
-                        <!-- Tab -->
-                        <div>
-                          <div class="sm:block">
-                            <div class="border-b border-gray-200">
-                              <nav
-                                class="-mb-px flex space-x-8"
-                                aria-label="Tabs"
-                              >
-                                <a
-                                  v-for="tab in tabs"
-                                  :key="tab.name"
-                                  :href="tab.href"
-                                  :class="[
-                                    tab.current
-                                      ? 'border-indigo-500 text-indigo-600'
-                                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                                    'group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm',
-                                  ]"
-                                  :aria-current="
-                                    tab.current ? 'page' : undefined
-                                  "
-                                >
-                                  <component
-                                    :is="tab.icon"
-                                    :class="[
-                                      tab.current
-                                        ? 'text-indigo-500'
-                                        : 'text-gray-400 group-hover:text-gray-500',
-                                      '-ml-0.5 mr-2 h-5 w-5',
-                                    ]"
-                                    aria-hidden="true"
-                                  />
-                                  <span>{{ tab.name }}</span>
-                                </a>
-                              </nav>
-                            </div>
-                          </div>
-                        </div>
+                      <div class="bg-white px-4 py-4 space-y-6">
                         <!-- Form Section -->
-                        <div class="grid grid-cols-3 gap-6">
+                        <div class="grid grid-cols-3 gap-3">
                           <!-- Subject -->
                           <div
                             class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
@@ -863,8 +940,9 @@ import {
   ExclamationCircleIcon,
   XIcon,
   MenuIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
+  MenuAlt1Icon,
+  MenuAlt2Icon,
+  SearchIcon,
 } from "@heroicons/vue/outline";
 import {
   Dialog,
