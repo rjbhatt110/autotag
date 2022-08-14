@@ -54,13 +54,6 @@
                     </div>
                   </TransitionChild>
                   <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                    <div class="flex-shrink-0 flex items-center px-4">
-                      <img
-                        class="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                        alt="Workflow"
-                      />
-                    </div>
                     <nav class="mt-5 px-2 space-y-1">
                       <a
                         v-for="item in navigation"
@@ -98,102 +91,67 @@
 
         <!-- Static sidebar for desktop -->
         <div
-          class="hidden md:flex lg:w-64 md:w-16 md:flex-col md:fixed md:inset-y-0"
+          class=""
+          :class="[
+            collapse ? 'md:w-64 duration-500' : 'md:w-14 duration-500',
+            'hidden md:flex md:flex-col md:fixed md:inset-y-0',
+          ]"
         >
           <!-- Sidebar component, swap this element with another sidebar if you like -->
           <div
-            class="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white"
+            class="flex-1 flex flex-col min-h-0 pb-4 border-r border-gray-200 bg-white"
           >
-            <div class="flex-1 flex flex-col pt-5 pb-4">
-              <!-- Full Sidebar logo -->
-              <div
-                class="m:hidden md:hidden lg:block flex items-center flex-shrink-0 px-4"
+            <!-- Full Sidebar -->
+            <nav class="mt-5 flex-1 px-2 bg-white space-y-1">
+              <a
+                v-for="item in navigation"
+                :key="item.name"
+                :href="item.href"
+                :class="[
+                  item.current
+                    ? 'bg-gray-100 text-gray-900'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                  'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                ]"
               >
-                <img
-                  class="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                  alt="Workflow"
-                />
-              </div>
-              <!-- Narrow Sidebar logo -->
-              <div
-                class="sm:hidden lg:hidden md:block absolute inset-y-0 left-0 md:static md:flex-shrink-0"
-              >
-                <a
-                  href="#"
-                  class="flex h-12 w-12 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-16"
-                >
-                  <img
-                    class="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                    alt="Workflow"
-                  />
-                </a>
-              </div>
-              <!-- Full Sidebar -->
-              <nav
-                class="sm:hidden md:hidden lg:block mt-5 flex-1 px-2 bg-white space-y-1"
-              >
-                <a
-                  v-for="item in navigation"
-                  :key="item.name"
-                  :href="item.href"
+                <component
+                  :is="item.icon"
                   :class="[
                     item.current
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                      ? 'text-gray-500'
+                      : 'text-gray-400 group-hover:text-gray-500',
+                    'flex-shrink-0 h-6 w-6',
                   ]"
-                >
-                  <component
-                    :is="item.icon"
-                    :class="[
-                      item.current
-                        ? 'text-gray-500'
-                        : 'text-gray-400 group-hover:text-gray-500',
-                      'mr-3 flex-shrink-0 h-6 w-6',
-                    ]"
-                    aria-hidden="true"
-                  />
-                  {{ item.name }}
-                </a>
-              </nav>
+                  aria-hidden="true"
+                />
+                <span :class="[!collapse ? 'sr-only duration-500' : 'ml-3']">{{
+                  item.name
+                }}</span>
+              </a>
+            </nav>
 
-              <!-- Narrow sidebar-->
-              <nav
-                aria-label="Sidebar"
-                class="sm:hidden lg:hidden md:block md:flex-shrink-0 md:bg-white"
-              >
-                <div class="relative flex w-16 flex-col space-y-3 p-3">
-                  <a
-                    v-for="item in navigation"
-                    :key="item.name"
-                    :href="item.href"
-                    :class="[
-                      item.current
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                    ]"
-                  >
-                    <!-- <span class="sr-only">{{ item.name }}</span> -->
-                    <component
-                      :is="item.icon"
-                      :class="[
-                        item.current
-                          ? 'text-gray-500'
-                          : 'text-gray-400 group-hover:text-gray-500',
-                        'flex-shrink-0 w-6 h-6',
-                      ]"
-                      aria-hidden="true"
-                    />
-                  </a>
+            <div
+              class="flex-shrink-0 flex border-t border-gray-200 pt-4 pr-4 pl-4"
+            >
+              <a href="#" class="flex-shrink-0 w-full group block">
+                <div class="flex items-center">
+                  <ArrowLeftIcon
+                    v-if="collapse"
+                    @click="menuCollapse()"
+                    class="text-gray-400 flex-shrink-0 h-6 w-6"
+                  />
+                  <ArrowRightIcon
+                    v-if="!collapse"
+                    @click="menuCollapse()"
+                    class="text-gray-400 flex-shrink-0 h-6 w-6"
+                  />
                 </div>
-              </nav>
+              </a>
             </div>
           </div>
         </div>
-        <div class="lg:pl-64 md:pl-16 flex flex-col flex-1">
+        <div :class="[collapse ? 'md:pl-64 duration-500' : 'md:pl-16 duration-500', 'flex flex-col flex-1']">
+          <!-- Mobile top bar -->
           <div
             class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white"
           >
@@ -206,74 +164,67 @@
               <MenuIcon class="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
+
           <main class="flex-1">
             <div class="p-6">
-              <div class="w-full sm:px-6 md:px-8">
-                <div
-                  class="md:flex md:items-center md:justify-between md:space-x-5 mb-5"
-                >
-                  <div class="flex items-start space-x-5">
-                    <div class="flex-shrink-0">
-                      <div class="relative">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          x="0px"
-                          y="0px"
-                          width="48"
-                          height="48"
-                          viewBox="0 0 48 48"
-                          style="fill: #000000"
-                        >
-                          <path
-                            fill="#4caf50"
-                            d="M37,39H11l-6,6V11c0-3.3,2.7-6,6-6h26c3.3,0,6,2.7,6,6v22C43,36.3,40.3,39,37,39z"
-                          ></path>
-                          <path
-                            fill="#004d40"
-                            d="M33.414,29.586l-7.636-7.636l-2.828,2.828l7.636,7.636C30.977,32.805,31.488,33,32,33 c0.512,0,1.023-0.195,1.414-0.586S34,31.512,34,31S33.805,29.977,33.414,29.586z"
-                          ></path>
-                          <path
-                            fill="#e0e0e0"
-                            d="M25.21 22.79L23.79 24.21 16.59 17 15.14 17 13 13.43 14.43 12 18 14.14 18 15.59z"
-                          ></path>
-                          <path
-                            fill="#bdbdbd"
-                            d="M25.2,22.79l-3.32-3.32l-1.41,1.41l3.32,3.33L25.2,22.79z"
-                          ></path>
-                          <path
-                            fill="#e0e0e0"
-                            d="M36,16.5c0,3.04-2.46,5.5-5.5,5.5c-0.79,0-1.53-0.17-2.21-0.46L17.41,32.41 C17.02,32.8,16.51,33,16,33s-1.02-0.2-1.41-0.59c-0.395-0.39-0.593-0.9-0.593-1.41c0-0.51,0.198-1.02,0.593-1.41l10.87-10.88 C25.17,18.03,25,17.29,25,16.5c0-3.04,2.46-5.5,5.5-5.5c0.79,0,1.53,0.17,2.21,0.46l-4.7,4.7l2.83,2.83l4.7-4.7 C35.83,14.97,36,15.71,36,16.5z"
-                          ></path>
-                        </svg>
-                        <span
-                          class="absolute inset-0 shadow-inner rounded-full"
-                          aria-hidden="true"
-                        />
-                      </div>
+              <div class="w-full mb-4 sm:px-6 md:px-8">
+                <div class="md:flex md:items-center md:justify-between">
+                  <div class="flex items-center flex-1 min-w-0">
+                    <div class="relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 48 48"
+                        style="fill: #000000"
+                      >
+                        <path
+                          fill="#4caf50"
+                          d="M37,39H11l-6,6V11c0-3.3,2.7-6,6-6h26c3.3,0,6,2.7,6,6v22C43,36.3,40.3,39,37,39z"
+                        ></path>
+                        <path
+                          fill="#004d40"
+                          d="M33.414,29.586l-7.636-7.636l-2.828,2.828l7.636,7.636C30.977,32.805,31.488,33,32,33 c0.512,0,1.023-0.195,1.414-0.586S34,31.512,34,31S33.805,29.977,33.414,29.586z"
+                        ></path>
+                        <path
+                          fill="#e0e0e0"
+                          d="M25.21 22.79L23.79 24.21 16.59 17 15.14 17 13 13.43 14.43 12 18 14.14 18 15.59z"
+                        ></path>
+                        <path
+                          fill="#bdbdbd"
+                          d="M25.2,22.79l-3.32-3.32l-1.41,1.41l3.32,3.33L25.2,22.79z"
+                        ></path>
+                        <path
+                          fill="#e0e0e0"
+                          d="M36,16.5c0,3.04-2.46,5.5-5.5,5.5c-0.79,0-1.53-0.17-2.21-0.46L17.41,32.41 C17.02,32.8,16.51,33,16,33s-1.02-0.2-1.41-0.59c-0.395-0.39-0.593-0.9-0.593-1.41c0-0.51,0.198-1.02,0.593-1.41l10.87-10.88 C25.17,18.03,25,17.29,25,16.5c0-3.04,2.46-5.5,5.5-5.5c0.79,0,1.53,0.17,2.21,0.46l-4.7,4.7l2.83,2.83l4.7-4.7 C35.83,14.97,36,15.71,36,16.5z"
+                        ></path>
+                      </svg>
                     </div>
-                    <div class="pt-1.5">
-                      <h1 class="text-2xl font-bold text-gray-900">
-                        Autotag node
-                      </h1>
-                    </div>
+                    <h1
+                      class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate"
+                    >
+                      Autotag node
+                    </h1>
                   </div>
-                  <div
-                    class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3"
-                  >
+                  <div class="mt-4 flex md:mt-0 md:ml-4">
                     <button
                       type="button"
-                      class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                      class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       Save
                     </button>
                     <button
                       type="button"
-                      class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                      class="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       Close
                     </button>
 
-                    <div class="relative z-0 inline-flex shadow-sm rounded-md">
+                    <div
+                      class="ml-3 relative z-0 inline-flex shadow-sm rounded-md"
+                    >
                       <Menu as="div" class="-ml-px relative block">
                         <MenuButton
                           class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
@@ -323,31 +274,13 @@
               </div>
               <div class="w-full sm:px-6 md:px-8">
                 <!-- Replace with your content -->
-                <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+                <div class="space-y-6 lg:px-0 lg:col-span-9">
                   <form action="#" method="POST">
                     <div class="shadow sm:rounded-md sm:overflow-hidden">
-                      <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                      <div class="bg-white px-4 space-y-6 sm:pb-6 sm:pr-6 sm:pl-6 sm:pt-3">
                         <!-- Tab -->
                         <div>
-                          <div class="sm:hidden">
-                            <label for="tabs" class="sr-only"
-                              >Select a tab</label
-                            >
-                            <select
-                              id="tabs"
-                              name="tabs"
-                              class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                            >
-                              <option
-                                v-for="tab in tabs"
-                                :key="tab.name"
-                                :selected="tab.current"
-                              >
-                                {{ tab.name }}
-                              </option>
-                            </select>
-                          </div>
-                          <div class="hidden sm:block">
+                          <div class="sm:block">
                             <div class="border-b border-gray-200">
                               <nav
                                 class="-mb-px flex space-x-8"
@@ -387,13 +320,13 @@
                         <div class="grid grid-cols-3 gap-6">
                           <!-- Subject -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <div class="flex flex-1 items-center">
                               <label
                                 for="subject"
                                 class="block text-sm font-medium text-gray-700 mr-1 mb-[2px]"
-                                >SUBJECT</label
+                                >Subject</label
                               >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -456,17 +389,17 @@
                               id="subject"
                               autocomplete="given-name"
                               value="Autotag node"
-                              class="mt-1 ml-1.5 block flex-[4] w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              class="mt-1 md:ml-1.5 block flex-[4] w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
                           </div>
                           <!-- Company -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="company"
                               class="block text-sm flex-1 font-medium text-gray-700"
-                              >COMPANY</label
+                              >Company</label
                             >
                             <div class="flex items-center flex-[4]">
                               <div
@@ -531,13 +464,13 @@
                           </div>
                           <!-- Requested By -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <div class="flex flex-1 flex-wrap items-center">
                               <label
                                 for="requested"
                                 class="block text-sm font-medium mr-1 mb-[2px] text-gray-700"
-                                >REQUESTED BY</label
+                                >Requested By</label
                               >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -634,7 +567,7 @@
                           <!-- Affected Divider -->
                           <div class="relative col-span-6 sm:col-span-3">
                             <div
-                              class="absolute inset-0 flex items-center"
+                              class="absolute inset-0 md:left-[20%] flex items-center"
                               aria-hidden="true"
                             >
                               <div class="w-full border-t border-gray-300" />
@@ -645,7 +578,7 @@
                               <span
                                 class="pr-3 bg-white text-sm font-medium text-gray-900"
                               >
-                                AFFECTS
+                                Affects
                               </span>
                               <button
                                 type="button"
@@ -660,12 +593,12 @@
                           </div>
                           <!-- Assign To -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="assigned"
                               class="block text-sm flex-1 font-medium text-gray-700"
-                              >ASSIGNED TO</label
+                              >Assigned To</label
                             >
                             <div
                               class="mt-1 flex-[4] relative rounded-md shadow-sm"
@@ -706,12 +639,12 @@
                           </div>
                           <!-- Type -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="type"
                               class="block flex-1 text-sm font-medium text-gray-700"
-                              >TYPE</label
+                              >Type</label
                             >
                             <div
                               class="mt-1 flex-[4] relative rounded-md shadow-sm"
@@ -763,18 +696,18 @@
                           </div>
                           <!-- Priority -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="priority"
                               class="block flex-1 text-sm font-medium text-gray-700"
-                              >PRIORITY</label
+                              >Priority</label
                             >
                             <select
                               id="priority"
                               name="priority"
                               autocomplete="priority-name"
-                              class="mt-1 ml-1 flex-[4] block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              class="mt-1 md:ml-1 flex-[4] block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                               <option>Low</option>
                               <option>Medium</option>
@@ -783,18 +716,18 @@
                           </div>
                           <!-- Status -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="status"
                               class="block flex-1 text-sm font-medium text-gray-700"
-                              >STATUS</label
+                              >Status</label
                             >
                             <select
                               id="status"
                               name="status"
                               autocomplete="status-name"
-                              class="mt-1 ml-1 flex-[4] block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              class="mt-1 md:ml-1 flex-[4] block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                               <option>Open</option>
                               <option>In Process</option>
@@ -803,34 +736,34 @@
                           </div>
                           <!-- Estimated Time -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="estimate"
                               class="block flex-1 text-sm font-medium text-gray-700"
-                              >ESTIMATED TIME</label
+                              >Estimated Time</label
                             >
                             <input
                               type="number"
-                              class="form-control flex-[4] ml-1 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              class="form-control flex-[4] md:ml-1 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                               id="estimate"
                               value="0"
                             />
                           </div>
                           <!-- Channel -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="channel"
                               class="block flex-1 text-sm font-medium text-gray-700"
-                              >CHANNEL</label
+                              >Channel</label
                             >
                             <select
                               id="channel"
                               name="channel"
                               autocomplete="channel-name"
-                              class="mt-1 ml-1 flex-[4] block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              class="mt-1 md:ml-1 flex-[4] block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                               <option>Phone</option>
                               <option>Email</option>
@@ -838,13 +771,13 @@
                           </div>
                           <!-- ID -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <div class="flex flex-1 items-baseline">
                               <label
                                 for="exampleFormControlInput5"
                                 class="form-label inline-block mb-2 mr-1 text-gray-700"
-                                >ID</label
+                                >Id</label
                               >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -875,7 +808,7 @@
                             </div>
                             <input
                               type="text"
-                              class="form-control ml-1.5 flex-[4] block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              class="form-control md:ml-1.5 flex-[4] block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                               id="exampleFormControlInput5"
                               placeholder="DS-180722-1"
                               aria-label="Disabled input example"
@@ -884,13 +817,13 @@
                           </div>
                           <!-- Description -->
                           <div
-                            class="flex items-baseline justify-between col-span-6 sm:col-span-3"
+                            class="md:flex items-baseline justify-between col-span-6 sm:col-span-3"
                           >
                             <label
                               for="description"
                               class="block flex-1 text-sm font-medium text-gray-700"
                             >
-                              DESCRIPTION
+                              Description
                             </label>
                             <textarea
                               id="description"
@@ -930,6 +863,8 @@ import {
   ExclamationCircleIcon,
   XIcon,
   MenuIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
 } from "@heroicons/vue/outline";
 import {
   Dialog,
@@ -943,13 +878,13 @@ import {
 } from "@headlessui/vue";
 
 const navigation = [
-  { name: "FIELD", href: "#", icon: PencilAltIcon, current: true },
-  { name: "TIMELINE", href: "#", icon: AdjustmentsIcon, current: false },
-  { name: "RESOURCE", href: "#", icon: ClockIcon, current: false },
-  { name: "CHECKLIST", href: "#", icon: ClipboardCheckIcon, current: false },
-  { name: "ATTACHMENTS", href: "#", icon: PaperClipIcon, current: false },
-  { name: "REMINDERS", href: "#", icon: BellIcon, current: false },
-  { name: "TAGS", href: "#", icon: TagIcon, current: false },
+  { name: "Field", href: "#", icon: PencilAltIcon, current: true },
+  { name: "Timeline", href: "#", icon: AdjustmentsIcon, current: false },
+  { name: "Resource", href: "#", icon: ClockIcon, current: false },
+  { name: "Checklist", href: "#", icon: ClipboardCheckIcon, current: false },
+  { name: "Attachments", href: "#", icon: PaperClipIcon, current: false },
+  { name: "Reminders", href: "#", icon: BellIcon, current: false },
+  { name: "Tags", href: "#", icon: TagIcon, current: false },
 ];
 const items = [
   { name: "Clone", href: "#" },
@@ -969,6 +904,12 @@ const tabs = [
 ];
 
 const sidebarOpen = ref(false);
+
+let collapse = ref(true);
+
+const menuCollapse = () => {
+  collapse.value = !collapse.value;
+};
 </script>
 
 <style></style>
