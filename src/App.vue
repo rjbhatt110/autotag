@@ -653,7 +653,7 @@
                               class="relative flex items-center justify-between"
                             >
                               <span
-                                class="pr-3 bg-white text-sm font-medium text-gray-900"
+                                class="pr-3 bg-white text-sm font-medium text-gray-700"
                               >
                                 Affects
                               </span>
