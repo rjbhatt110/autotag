@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 w-full flex min-h-screen">
+  <div class="w-full flex min-h-screen">
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog
         as="div"
@@ -92,12 +92,12 @@
       class=""
       :class="[
         collapse ? 'md:w-64 duration-500' : 'md:w-14 duration-500',
-        'hidden md:flex md:flex-col md:inset-y-0',
+        'hidden md:flex md:flex-col md:inset-y-0 bg-gray-100',
       ]"
     >
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div
-        class="flex-1 flex flex-col min-h-0 pb-4 border-r border-gray-200 bg-white"
+        class="flex-1 flex flex-col min-h-0 pb-4 border-r border-gray-200 bg-gray-100"
       >
         <div class="flex-shrink-0 flex p-4">
           <a href="#" class="flex-shrink-0 w-full group block">
@@ -118,15 +118,15 @@
 
         <!-- Full Sidebar -->
         <div class="flex-grow flex flex-col">
-          <nav class="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
+          <nav class="flex-1 px-2 space-y-1 bg-gray-100" aria-label="Sidebar">
             <template v-for="item in navigation" :key="item.name">
               <div v-if="!item.children">
                 <a
                   href="#"
                   :class="[
                     item.current
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      ? 'bg-white text-gray-900'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                     'group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md',
                   ]"
                 >
@@ -149,8 +149,8 @@
                 <DisclosureButton
                   :class="[
                     item.current
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      ? 'bg-white text-gray-900'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                     'group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500',
                   ]"
                 >
@@ -203,7 +203,7 @@
       ]"
     >
       <!-- Mobile top bar -->
-      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
+      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-gray-100 shadow">
         <button
           type="button"
           class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -227,7 +227,7 @@
                 </div>
                 <input
                   id="search-field"
-                  class="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
+                  class="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 bg-gray-100 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
                   placeholder="Search"
                   type="search"
                   name="search"
@@ -238,7 +238,7 @@
           <div class="ml-4 flex items-center md:ml-6">
             <button
               type="button"
-              class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="bg-gray-100 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <span class="sr-only">View notifications</span>
               <BellIcon class="h-6 w-6" aria-hidden="true" />
@@ -398,8 +398,7 @@
             <!-- Replace with your content -->
             <div class="space-y-6 lg:px-0 lg:col-span-9">
               <form action="#" method="POST">
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
-                  <div class="bg-white px-4 py-4 space-y-6">
+                  <div class="py-4 space-y-6">
                     <!-- Form Section -->
                     <div class="grid grid-cols-3 gap-3">
                       <!-- Subject -->
@@ -911,7 +910,6 @@
                       </div>
                     </div>
                   </div>
-                </div>
               </form>
             </div>
             <!-- /End replace -->
