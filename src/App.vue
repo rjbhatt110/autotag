@@ -52,10 +52,7 @@
                 </div>
               </TransitionChild>
               <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto bg-gray-100">
-                <nav
-                  class="px-2 space-y-1 bg-gray-100"
-                  aria-label="Sidebar"
-                >
+                <nav class="px-2 space-y-1 bg-gray-100" aria-label="Sidebar">
                   <template v-for="item in navigation" :key="item.name">
                     <div v-if="!item.children">
                       <a
@@ -78,7 +75,7 @@
                           aria-hidden="true"
                         />
 
-                          {{ item.name }}
+                        {{ item.name }}
                       </a>
                     </div>
                     <Disclosure
@@ -101,7 +98,7 @@
                           aria-hidden="true"
                         />
 
-                          {{ item.name }}
+                        {{ item.name }}
                         <svg
                           :class="[
                             open ? 'text-gray-400 rotate-90' : 'text-gray-300',
@@ -113,9 +110,7 @@
                           <path d="M6 6L14 10L6 14V6Z" fill="currentColor" />
                         </svg>
                       </DisclosureButton>
-                      <DisclosurePanel
-                        class="space-y-1"
-                      >
+                      <DisclosurePanel class="space-y-1">
                         <DisclosureButton
                           v-for="subItem in item.children"
                           :key="subItem.name"
@@ -141,28 +136,25 @@
 
     <!-- Static sidebar for desktop -->
     <div
-      class=""
       :class="[
-        collapse ? 'md:w-64 duration-500' : 'md:w-14 duration-500',
-        'hidden md:flex md:flex-col md:inset-y-0 bg-gray-100',
+        collapse ? 'md:w-64 duration-500' : 'md:w-18 duration-500',
+        'hidden md:flex md:flex-col md:inset-y-0 bg-[#F7F8F9]',
       ]"
     >
       <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div
-        class="flex-1 flex flex-col min-h-0 pb-4 border-r border-gray-200 bg-gray-100"
-      >
-        <div class="flex-shrink-0 flex p-4">
+      <div class="flex-1 flex flex-col min-h-0 pb-4 bg-[#F7F8F9]">
+        <div class="flex-shrink-0 flex p-7">
           <a href="#" class="flex-shrink-0 w-full group block">
             <div class="flex items-center">
               <MenuAlt1Icon
                 v-if="collapse"
                 @click="menuCollapse()"
-                class="text-[#4f46e5] flex-shrink-0 h-6 w-6"
+                class="text-[#92A0B1] flex-shrink-0 h-6 w-6"
               />
               <MenuAlt2Icon
                 v-if="!collapse"
                 @click="menuCollapse()"
-                class="text-[#4f46e5] flex-shrink-0 h-6 w-6"
+                class="text-[#92A0B1] flex-shrink-0 h-6 w-6"
               />
             </div>
           </a>
@@ -170,15 +162,22 @@
 
         <!-- Full Sidebar -->
         <div class="flex-grow flex flex-col">
-          <nav class="flex-1 px-2 space-y-1 bg-gray-100" aria-label="Sidebar">
+          <nav
+            :class="[
+              collapse ? 'px-7 duration-500' : 'px-4 duration-500',
+              'flex-1 bg-[#F7F8F9]',
+            ]"
+            aria-label="Sidebar"
+          >
             <template v-for="item in navigation" :key="item.name">
-              <div v-if="!item.children">
+              <div v-if="!item.children" class="my-2">
                 <a
                   href="#"
                   :class="[
                     item.current
-                      ? 'bg-white text-gray-900'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      ? 'bg-[#8BC832] text-white'
+                      : 'bg-[#F7F8F9] text-[#92A0B1] hover:bg-gray-50 hover:text-gray-900',
+                    collapse ? 'unset' : 'justify-center',
                     'group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md',
                   ]"
                 >
@@ -186,9 +185,10 @@
                     :is="item.icon"
                     :class="[
                       item.current
-                        ? 'text-gray-500'
-                        : 'text-gray-400 group-hover:text-gray-500',
-                      'mr-3 flex-shrink-0 h-6 w-6',
+                        ? 'text-white'
+                        : 'text-[#92A0B1] group-hover:text-gray-500',
+                      collapse ? 'mr-0' : 'mr-3',
+                      'flex-shrink-0 h-6 w-6',
                     ]"
                     aria-hidden="true"
                   />
@@ -201,24 +201,31 @@
                 <DisclosureButton
                   :class="[
                     item.current
-                      ? 'bg-white text-gray-900'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                    'group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500',
+                      ? 'bg-[#8BC832] text-white'
+                      : 'bg-[#F7F8F9] text-[#92A0B1] hover:bg-gray-50 hover:text-gray-900',
+                    collapse ? 'unset' : 'justify-center',
+                    'group w-full flex items-center pl-2 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500',
                   ]"
                 >
                   <component
                     :is="item.icon"
-                    class="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                    :class="[
+                      collapse ? 'mr-0' : 'mr-3',
+                      'flex-shrink-0 h-6 w-6 text-white group-hover:text-white',
+                    ]"
                     aria-hidden="true"
                   />
                   <span
-                    :class="[!collapse ? 'sr-only duration-500' : '', 'flex-1']"
+                    :class="[
+                      !collapse ? 'sr-only duration-500' : 'ml-3',
+                      'flex-1',
+                    ]"
                   >
                     {{ item.name }}
                   </span>
                   <svg
                     :class="[
-                      open ? 'text-gray-400 rotate-90' : 'text-gray-300',
+                      open ? 'text-white rotate-90' : 'text-white',
                       !collapse ? 'sr-only duration-500' : '',
                       'ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150',
                     ]"
@@ -256,7 +263,9 @@
       ]"
     >
       <!-- Mobile top bar -->
-      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-gray-100 shadow">
+      <div
+        class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-[#F7F8F9] shadow md:hidden"
+      >
         <button
           type="button"
           class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -267,36 +276,8 @@
         </button>
 
         <div class="flex-1 flex justify-between px-4">
-          <div class="flex-1 flex">
-            <form class="w-full flex md:ml-0" action="#" method="GET">
-              <label for="search-field" class="sr-only">Search</label>
-              <div
-                class="relative w-full text-gray-400 focus-within:text-gray-600"
-              >
-                <div
-                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center"
-                >
-                  <SearchIcon class="h-5 w-5" aria-hidden="true" />
-                </div>
-                <input
-                  id="search-field"
-                  class="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 bg-gray-100 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-                  placeholder="Search"
-                  type="search"
-                  name="search"
-                />
-              </div>
-            </form>
-          </div>
+          <div class="flex-1 flex"></div>
           <div class="ml-4 flex items-center md:ml-6">
-            <button
-              type="button"
-              class="bg-gray-100 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              <span class="sr-only">View notifications</span>
-              <BellIcon class="h-6 w-6" aria-hidden="true" />
-            </button>
-
             <!-- Profile dropdown -->
             <Menu as="div" class="ml-3 relative">
               <div>
@@ -344,11 +325,11 @@
       </div>
 
       <main class="flex-1">
-        <div class="p-4">
+        <div class="p-10">
           <div class="w-full sm:px-6 md:px-8">
             <!-- Page Header -->
             <div class="flex items-center flex-1 min-w-0">
-              <div class="relative">
+              <div class="relative mr-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -391,7 +372,7 @@
             <!-- Replace with your content -->
             <div class="space-y-6 lg:px-0 lg:col-span-9">
               <form action="#" method="POST">
-                <div class="py-4 space-y-6">
+                <div class="py-10 space-y-6">
                   <!-- Form Section -->
                   <div class="grid grid-cols-3 gap-3">
                     <!-- Subject -->
@@ -401,7 +382,7 @@
                       <div class="flex flex-1 items-center">
                         <label
                           for="subject"
-                          class="block text-sm font-medium text-gray-700 mr-1 mb-[2px]"
+                          class="block text-sm font-medium text-[#92A0B1] mr-1 mb-[2px]"
                           >Subject</label
                         >
                         <svg
@@ -471,7 +452,7 @@
                     >
                       <label
                         for="company"
-                        class="block text-sm flex-1 font-medium text-gray-700"
+                        class="block text-sm flex-1 font-medium text-[#92A0B1]"
                         >Company</label
                       >
                       <div class="flex items-center flex-[4]">
@@ -534,7 +515,7 @@
                       <div class="flex flex-1 flex-wrap items-center">
                         <label
                           for="requested"
-                          class="block text-sm font-medium mr-1 mb-[2px] text-gray-700"
+                          class="block text-sm font-medium mr-1 mb-[2px] text-[#92A0B1]"
                           >Requested By</label
                         >
                         <svg
@@ -637,7 +618,7 @@
                       </div>
                       <div class="relative flex items-center justify-between">
                         <span
-                          class="pr-3 bg-white text-sm font-medium text-gray-700"
+                          class="pr-3 bg-white text-sm font-medium text-[#92A0B1]"
                         >
                           Affects
                         </span>
@@ -658,7 +639,7 @@
                     >
                       <label
                         for="assigned"
-                        class="block text-sm flex-1 font-medium text-gray-700"
+                        class="block text-sm flex-1 font-medium text-[#92A0B1]"
                         >Assigned To</label
                       >
                       <div class="mt-1 flex-[4] relative rounded-md shadow-sm">
@@ -702,7 +683,7 @@
                     >
                       <label
                         for="type"
-                        class="block flex-1 text-sm font-medium text-gray-700"
+                        class="block flex-1 text-sm font-medium text-[#92A0B1]"
                         >Type</label
                       >
                       <div class="mt-1 flex-[4] relative rounded-md shadow-sm">
@@ -757,7 +738,7 @@
                     >
                       <label
                         for="priority"
-                        class="block flex-1 text-sm font-medium text-gray-700"
+                        class="block flex-1 text-sm font-medium text-[#92A0B1]"
                         >Priority</label
                       >
                       <select
@@ -777,7 +758,7 @@
                     >
                       <label
                         for="status"
-                        class="block flex-1 text-sm font-medium text-gray-700"
+                        class="block flex-1 text-sm font-medium text-[#92A0B1]"
                         >Status</label
                       >
                       <select
@@ -797,7 +778,7 @@
                     >
                       <label
                         for="estimate"
-                        class="block flex-1 text-sm font-medium text-gray-700"
+                        class="block flex-1 text-sm font-medium text-[#92A0B1]"
                         >Estimated Time</label
                       >
                       <input
@@ -813,7 +794,7 @@
                     >
                       <label
                         for="channel"
-                        class="block flex-1 text-sm font-medium text-gray-700"
+                        class="block flex-1 text-sm font-medium text-[#92A0B1]"
                         >Channel</label
                       >
                       <select
@@ -833,7 +814,7 @@
                       <div class="flex flex-1 items-baseline">
                         <label
                           for="exampleFormControlInput5"
-                          class="form-label inline-block mb-2 mr-1 text-gray-700"
+                          class="form-label inline-block mb-2 mr-1 text-[#92A0B1]"
                           >Id</label
                         >
                         <svg
@@ -875,7 +856,7 @@
                     >
                       <label
                         for="description"
-                        class="block flex-1 text-sm font-medium text-gray-700"
+                        class="block flex-1 text-sm font-medium text-[#92A0B1]"
                       >
                         Description
                       </label>
@@ -893,66 +874,70 @@
             </div>
             <!-- /End replace -->
           </div>
-          <div
-            class="flex items-center justify-end flex-wrap w-full sm:px-6 md:px-8"
-          >
-            <!-- Save and Close -->
-            <div class="flex flex-none mt-4">
-              <button
-                type="button"
-                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                class="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Close
-              </button>
+        </div>
+        <!-- Bottom Bar -->
+        <div
+          :class="[
+            collapse ? 'md:w-[calc(100vw_-_17rem)]' : 'md:w-[calc(100vw_-_6rem)]',
+            'w-full flex items-center justify-center flex-wrap bg-[#F7F8F9] fixed bottom-0 py-4 sm:px-6 md:px-20 md:justify-end',
+          ]"
+        >
+          <!-- Save and Close -->
+          <div class="flex flex-none">
+            <button
+              type="button"
+              class="inline-flex items-center px-10 py-2 rounded-md shadow-sm text-sm font-medium text-white bg-[#8BC832] border border-[#63921F] hover:bg-[#8BC832] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="ml-3 inline-flex items-center px-10 py-2 rounded-md shadow-sm text-sm font-medium text-white bg-[#8BC832] border border-[#63921F] hover:bg-[#8BC832] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Close
+            </button>
 
-              <div class="ml-3 relative z-1 inline-flex shadow-sm rounded-md">
-                <Menu as="div" class="-ml-px relative block">
-                  <MenuButton
-                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            <div class="ml-3 relative z-1 inline-flex shadow-sm rounded-md">
+              <Menu as="div" class="-ml-px relative block">
+                <MenuButton
+                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-[#63921F] bg-[#8BC832] text-sm font-medium text-white hover:bg-[#8BC832] focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  <span class="sr-only">Open options</span>
+                  <DotsVerticalIcon class="h-5 w-5" aria-hidden="true" />
+                </MenuButton>
+                <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-from-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-from-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                >
+                  <MenuItems
+                    class="origin-top-right absolute right-0 mb-2 bottom-full -mr-1 w-56 z-10 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <span class="sr-only">Open options</span>
-                    <DotsVerticalIcon class="h-5 w-5" aria-hidden="true" />
-                  </MenuButton>
-                  <transition
-                    enter-active-class="transition ease-out duration-100"
-                    enter-from-class="transform opacity-0 scale-95"
-                    enter-to-class="transform opacity-100 scale-100"
-                    leave-active-class="transition ease-in duration-75"
-                    leave-from-class="transform opacity-100 scale-100"
-                    leave-to-class="transform opacity-0 scale-95"
-                  >
-                    <MenuItems
-                      class="origin-top-right absolute right-0 mb-2 bottom-full -mr-1 w-56 z-10 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    >
-                      <div class="py-1">
-                        <MenuItem
-                          v-for="item in items"
-                          :key="item.name"
-                          v-slot="{ active }"
+                    <div class="py-1">
+                      <MenuItem
+                        v-for="item in items"
+                        :key="item.name"
+                        v-slot="{ active }"
+                      >
+                        <a
+                          :href="item.href"
+                          :class="[
+                            active
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block px-4 py-2 text-sm',
+                          ]"
                         >
-                          <a
-                            :href="item.href"
-                            :class="[
-                              active
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-700',
-                              'block px-4 py-2 text-sm',
-                            ]"
-                          >
-                            {{ item.name }}
-                          </a>
-                        </MenuItem>
-                      </div>
-                    </MenuItems>
-                  </transition>
-                </Menu>
-              </div>
+                          {{ item.name }}
+                        </a>
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+                </transition>
+              </Menu>
             </div>
           </div>
         </div>
@@ -977,7 +962,6 @@ import {
   MenuIcon,
   MenuAlt1Icon,
   MenuAlt2Icon,
-  SearchIcon,
 } from "@heroicons/vue/outline";
 import {
   Dialog,
